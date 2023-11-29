@@ -2,11 +2,13 @@ const express = require("express");
 require("dotenv").config();
 const { db } = require("./db/db.connect");
 const axios = require("axios");
+const cors = require("cors");
 db();
 const Transaction = require("./model/transaction.model");
 const transactionRoutes = require("./Routes/transaction.routes");
 const app = express();
 app.use(express.json());
+app.use(cors({ origin: "*" }));
 app.use("/api", transactionRoutes);
 
 port = process.env.PORT || 8001;
