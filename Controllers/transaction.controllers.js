@@ -49,7 +49,7 @@ exports.getStatistics = async (req, res) => {
       },
     });
     if (!monthOfSale) {
-      return res.status(400).send({
+      return res.status(200).send({
         message: "No sales made on this month",
       });
     }
