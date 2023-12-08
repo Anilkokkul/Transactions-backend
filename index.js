@@ -45,7 +45,14 @@ app.get("/api/initialize-transaction", async (req, res) => {
 
 app.get("/get-transactions", async (req, res) => {
   try {
-    await Transaction.find()
+    const { month } = req.query;
+
+    await Transaction.find({
+      dateOfSale: {
+        $gte: new Date(`${month}-01T00:00:00Z`),
+        $lt: new Date(`${month}-31T23:59:59Z`),
+      },
+    })
       .then((data) => {
         res.status(200).send({
           message: "Transactions retrieved successfully",
@@ -71,5 +78,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on http://localhost:${port}`);
 });
